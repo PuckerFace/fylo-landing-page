@@ -8,21 +8,16 @@
 }
 :root {
   /* Dark Theme */
-  /* intro and email sign up background */
   --email-blue: hsl(217, 28%, 15%);
-  /* main background */
-  /* --background: hsl(218, 28%, 13%); */
   --background: hsl(217, 28%, 15%);
   --back: url(images/dark/bg-curvy-desktop.svg);
-  /* footer background */
+  --mobile: url(images/dark/bg-curvy-mobile.svg);
+  --quote: url(images/dark/bg-quotes.png);
+  --side-bar: hsla(217, 27%, 15%, 0.212);
   --footer: hsl(215, 52%, 9%);
-  /* testimonials background */
   --testimonial: hsl(219, 30%, 18%);
-  /* inside call-to-action gradient */
   --cyan: hsl(176, 68%, 64%);
-  /* inside call-to-action gradient */
   --blue: hsl(198, 60%, 50%);
-  /*  Neutral */
   --red: hsl(0, 100%, 63%);
   --head-text: hsl(0, 0%, 100%);
   --white: hsl(0, 0%, 100%);
@@ -33,39 +28,24 @@
     rgba(24, 31, 42, 0.966) 50%,
     var(--footer) 50%
   );
-  --quote: url(images/dark/bg-quotes.png);
   /* Fonts */
   --fallback-font: 'serif';
-  /* Headings, Call-to-actions, Header Navigation */
   --head-font: 'Raleway';
-  /* Body */
   --body-font: 'Open Sans';
 }
+
 .lightmode {
   /* Light Theme */
-  /* --dark-blue: hsl(243, 87%, 12%);
-  --desaturated-blue: hsl(238, 22%, 44%);
-  --bright-blue: hsl(224, 93%, 58%);
-  --moderate-cyan: hsl(170, 45%, 43%);
-  --gray-blue: hsl(240, 75%, 98%);
-  -gray: hsl(0, 0%, 75%); */
-
-  /* intro and email sign up background */
+  --side-bar: hsl(240, 17%, 92%, 0.212);
   --email-blue: hsl(239, 22%, 44%);
-  /* main background */
   --background: hsl(240, 17%, 92%);
-  /* --background: hsl(240, 75%, 98%); */
-  /* footer background */
   --footer: hsl(238, 22%, 44%);
-  /* --footer: hsl(243, 87%, 12%); */
-  /* testimonials background */
   --testimonial: hsl(240, 19%, 87%);
-  /* inside call-to-action gradient */
   --cyan: hsl(170, 45%, 43%);
-  /* inside call-to-action gradient */
   --blue: hsl(224, 93%, 58%);
   --text: hsl(0, 4%, 18%);
   --back: url(images/light/bg-curve-desktop.svg);
+  --mobile: url(images/light/bg-curve-mobile.svg);
   --head-text: hsl(240, 22%, 12%);
   --gradient: linear-gradient(to right, var(--background), var(--email-blue));
   --email-gradient: linear-gradient(
@@ -75,7 +55,8 @@
   );
   --svg: #e7e7ee;
 }
-#theme-switch {
+#theme-switch,
+#theme-switch-mobile {
   background: var(--email-blue);
   padding: 0;
   height: 50px;
@@ -87,8 +68,12 @@
   border: none;
   outline: none;
 }
+#theme-switch svg {
+  height: 40px;
+  width: 40px;
+}
+
 body {
-  /* background: url(images/light/bg-curve-desktop.svg), var(--background); */
   background-color: var(--background);
   font-family: var(--body-font), var(--fallback-font);
 }
@@ -103,8 +88,37 @@ main {
   background: var(--back);
   background-repeat: no-repeat;
   background-size: 100% 100%;
+  min-width: 100vw;
   min-height: 100vh;
   background-position: bottom;
+}
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 250px;
+  z-index: 999;
+  background-color: var(--side-bar);
+  backdrop-filter: blur(15px);
+  box-shadow: -10px 0 10px rgba(0, 0, 0, 0.352);
+  display: none;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 20px;
+}
+.hideDesktop {
+  display: none;
+}
+.sidebar a,
+.sidebar button {
+  width: 100%;
+  margin-top: 20px;
+}
+.sidebar a {
+  text-decoration: none;
+  color: var(--text);
 }
 nav {
   display: flex;
@@ -157,7 +171,6 @@ button {
   border: none;
   outline: none;
 }
-
 .cta {
   background: var(--gradient);
   padding: 15px;
@@ -204,7 +217,8 @@ rect {
   fill: var(--svg);
 }
 .workings {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   align-items: center;
   justify-content: space-between;
   padding: 20px;
@@ -230,9 +244,10 @@ h2 {
   align-items: center;
   gap: 5px;
   vertical-align: middle;
+  flex-direction: column;
 }
 hr {
-  width: 27%;
+  width: 30%;
   border: 1px solid var(--cyan);
 }
 .more-info a {
@@ -379,4 +394,106 @@ footer {
 }
 .fa-brands:hover {
   color: var(--cyan);
+}
+
+/* Responsive Design */
+@media (max-width: 715px) {
+  .workings {
+    grid-template-columns: repeat(1, 1fr);
+    text-align: center;
+  }
+  .more-info {
+    justify-content: center;
+  }
+  .testimonials {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .features {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+@media (max-width: 580px) {
+  main {
+    background: var(--mobile);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    min-height: 100vh;
+    background-position: bottom;
+  }
+  header p {
+    width: 60%;
+  }
+  h1 {
+    font-size: 35px;
+  }
+  .fa-brands {
+    font-size: 16px;
+    margin-right: 0px;
+    margin-bottom: 10px;
+  }
+  .hideMobile {
+    display: none;
+  }
+  .hideDesktop {
+    display: block;
+    width: 40px;
+  }
+  #close-side-bar {
+    width: 40px;
+  }
+  #theme-switch {
+    display: none;
+  }
+}
+@media (max-width: 550px) {
+  .credits {
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+  }
+  .fa-brands {
+    font-size: 16px;
+    margin-right: 10px;
+    align-self: center;
+  }
+}
+@media (max-width: 515px) {
+  .logo {
+    width: 100%;
+    max-width: 100px;
+    margin-left: 20px;
+  }
+  .sidebar {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  .sidebar a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+@media (max-width: 465px) {
+  .email-input {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  input[type='email'] {
+    padding: 12px;
+    width: 100%;
+  }
+  #signup {
+    margin-top: 10px;
+    padding: 12px;
+    width: 100%;
+  }
+  .credits {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  header p {
+    width: 80%;
+  }
 }
